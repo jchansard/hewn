@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import * as paper from 'paper';
 
 @Component({
   selector: 'app-root',
