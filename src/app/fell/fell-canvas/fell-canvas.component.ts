@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { TreeService } from '../shared/tree.service';
-import { Path, Project, PaperScope, View } from 'paper';
+import { Path, Project, PaperScope, Point, Style } from 'paper';
+import { Observable }  from 'rxjs/Observable';
 import * as paper from 'paper';
+
+import { HewnTree } from '../shared/hewn-tree';
 
 @Component({
   selector: 'fell-viewport',
@@ -22,13 +25,23 @@ export class FellCanvasComponent implements OnInit {
     // Create an empty project and a view for the canvas
     this.paper.setup(this.canvas.nativeElement);
     // Load the tree
-    this.getTree();
+    this.getTree().subscribe((tree:HewnTree) => {
+      let treePath = new Path();
+      let style = new Style();
+      treePath.closed = true;
+      style.strokeColor = tree.color;
+      style.fillColor = tree.color;
+      treePath.style = style;
+      tree.pointData.forEach(point => treePath.add(new Point(point[0], point[1])));
+      treePath.onClick = () => treePath.fillColor = "green";
+    });
+
     // Draw the tree
 		this.paper.view.draw();
   }
 
-  getTree() {
-    this.treeService.getTree(this.paper.project).then(tree => this.tree = tree);
+  getTree():Observable<HewnTree> {
+    return this.treeService.getTree();
   }
 
 }
