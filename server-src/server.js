@@ -11,11 +11,11 @@ const app = express();
 // define apis
 const treeLoadAPI = require('./routes/api/tree-load');
 
-// define static path 
+// define static path
 app.use(express.static(path.join(__dirname, root)));
 
 // route apis
-app.use('/tree', treeLoadAPI);
+app.use('/api/tree', treeLoadAPI);
 
 // redirect to index for other routes
 app.get('*', (req, res) => {
