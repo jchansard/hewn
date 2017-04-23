@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FellComponent } from './fell.component';
+import { FellCanvasComponent } from './fell-canvas.component';
 
-describe('FellComponent', () => {
-  let component: FellComponent;
-  let fixture: ComponentFixture<FellComponent>;
+describe('FellCanvasComponent', () => {
+  let component: FellCanvasComponent;
+  let fixture: ComponentFixture<FellCanvasComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FellComponent ]
+      declarations: [ FellCanvasComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FellComponent);
+    fixture = TestBed.createComponent(FellCanvasComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
