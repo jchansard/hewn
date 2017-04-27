@@ -14,7 +14,6 @@ interface treeResponse {
 
 @Injectable()
 export class TreeService {
-  treePoints: number[][] = [];
   constructor(private http:Http) { }
 
   getTree(): Observable<HewnTree> {

@@ -1,6 +1,7 @@
 const express = require('express');
 const http    = require('http');
 const path    = require('path');
+const io      = require('./socket');
 
 const root = '';
 const port = process.env.PORT || '3000';
