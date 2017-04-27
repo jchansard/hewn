@@ -1,10 +1,11 @@
 import { Injectable }   from '@angular/core';
 import { mockTreePath } from './mock-tree';
 import { Observable }   from 'rxjs/Observable';
-import { Http }         from '@angular/http';
 import { HewnTree }     from './hewn-tree';
 
+import * as io from 'socket.io-client';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/of';
 
 interface treeResponse {
   id: number,
@@ -14,12 +15,29 @@ interface treeResponse {
 
 @Injectable()
 export class TreeService {
-  constructor(private http:Http) { }
+  private url = 'http://localhost:3000';
+  private socket:SocketIOClient.Socket;
+  private requestStream:Observable<any>;
 
-  getTree(): Observable<HewnTree> {
-    return this.http.get('/api/tree')
-      .map(response => response.json() as treeResponse)
-      .map((data:treeResponse) => new HewnTree(data.id, data.color, data.pointData));
+  constructor() { this.init(); }
+
+  private init():void {
+    this.socket = io(this.url);
+    this.requestStream = Observable.of('request-tree');
+  }
+
+  public getTreeStream(): Observable<HewnTree> {
+    let treeStream = new Observable(stream => {
+      this.socket.on('tree-update', (treeData:treeResponse) => stream.next(new HewnTree(treeData.id, treeData.color, treeData.pointData))); // todo: make factory
+
+      return () => this.socket.disconnect();
+    })
+
+    return treeStream;
+  }
+
+  public getTree() {
+    this.requestStream.subscribe(event => this.socket.emit(event));
   }
 
 }
