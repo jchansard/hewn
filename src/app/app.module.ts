@@ -9,6 +9,7 @@ import { FellCanvasComponent } from './fell/fell-canvas/fell-canvas.component';
 
 // services
 import { TreeService } from './fell/shared/tree.service';
+import { SocketService } from './shared/services/socket.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { TreeService } from './fell/shared/tree.service';
     FormsModule,
     HttpModule
   ],
-  providers: [TreeService],
+  providers: [TreeService, SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
