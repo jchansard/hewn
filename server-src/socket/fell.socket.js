@@ -5,7 +5,8 @@ module.exports = (io) => {
 
     socket.on('disconnect', () => console.log('user disconnected'));
 
-    socket.on('request-tree', () => {
+    socket.on('tree-request', () => {
+      console.log('tree requested');
       io.json.emit('tree-update', {
           id: 1,
           color: 'brown',

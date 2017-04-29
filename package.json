@@ -9,9 +9,13 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "x-build": "ng build && cp -R server-src/* dist/",
-    "x-build-srv": "cp -R server-src/* dist/",
-    "x": "cd dist && node server.js"
+    "n-build": "npm run n-build-shared && ng build && npm run n-build-srv",
+    "n-build-srv": "cp -R server-src/* dist/",
+    "n-build-shared": "npm run copy-shared-client && npm run copy-shared-server",
+    "n": "cd dist && node server.js",
+    "copy-shared-client": "rm -rf src/app/shared/* && cd shared-src && find . -name '*.ts' | cpio -pmdv ../src/app",
+    "copy-shared-server": "rm -rf server-src/shared/* && cd shared-src && tsc"
+
   },
   "private": true,
   "dependencies": {

@@ -22,6 +22,7 @@ export class FellCanvasComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initResponseStreams();
     // Create an empty project and a view for the canvas
     this.paper.setup(this.canvas.nativeElement);
     // Load the tree
@@ -31,8 +32,8 @@ export class FellCanvasComponent implements OnInit {
 		this.paper.view.draw();
   }
 
-  private getTree():void {
-    this.treeService.getTreeStream().subscribe((tree:HewnTree) => {
+  private initResponseStreams() {
+    this.treeService.getResponseStream().subscribe((tree:HewnTree) => {
       let treePath = new Path();
       let style = new Style();
       treePath.closed = true;
@@ -40,10 +41,10 @@ export class FellCanvasComponent implements OnInit {
       style.fillColor = tree.color;
       treePath.style = style;
       tree.pointData.forEach(point => treePath.add(new Point(point[0], point[1])));
-      treePath.onClick = () => treePath.fillColor = "green";
     });
-
-    this.treeService.getTree();
+  }
+  private getTree():void {
+    this.treeService.requestTree();
   }
 
 }
