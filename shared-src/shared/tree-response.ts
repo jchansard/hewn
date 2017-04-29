@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/observable/of';
 
-export interface treeResponse {
+export interface ITreeResponse {
   id: number,
   color: string,
   pointData: number[][]
