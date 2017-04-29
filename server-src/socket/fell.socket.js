@@ -1,4 +1,4 @@
-const FellEvents = require('../shared/tree-response').FellEvents;
+const FellEvents = require('../common/events/fell-events').FellEvents;
 let fellEvents = new FellEvents();
 
 let mockTree = {

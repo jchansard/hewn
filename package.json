@@ -13,8 +13,8 @@
     "n-build-srv": "cp -R server-src/* dist/",
     "n-build-shared": "npm run copy-shared-client && npm run copy-shared-server",
     "n": "cd dist && node server.js",
-    "copy-shared-client": "rm -rf src/app/shared/* && cd shared-src && find . -name '*.ts' | cpio -pmdv ../src/app",
-    "copy-shared-server": "rm -rf server-src/shared/* && cd shared-src && tsc"
+    "copy-shared-client": "rm -rf src/app/common/* && cd common-src && find . -name '*.ts' | cpio -pmdv ../src/app",
+    "copy-shared-server": "rm -rf server-src/common/* && cd common-src && tsc"
 
   },
   "private": true,

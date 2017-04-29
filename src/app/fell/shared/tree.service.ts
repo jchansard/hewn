@@ -4,17 +4,16 @@ import { Observable }   from 'rxjs/Observable';
 import { HewnTree, HewnTreeFactory }     from './hewn-tree';
 
 import * as io from 'socket.io-client';
-import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/observable/of';
 
-import { ITreeResponse, FellEvents } from '../../shared/tree-response';
+import { ITreeResponse } from '../../common/json-data/json.ITreeResponse';
+import { FellEvents } from '../../common/events/fell-events'
 
 @Injectable()
 export class TreeService {
   private url = 'http://localhost:3000';
   private socket:SocketIOClient.Socket;
-  private requestStream:Observable<string>;
+  private requestStream:Observable<any>;
   private responseStream:Observable<HewnTree>;
   private fellEvents:FellEvents;
 
@@ -26,10 +25,10 @@ export class TreeService {
     this.fellEvents = new FellEvents();
     this.requestStream = this.fellEvents.treeRequestStream();
     this.responseStream = this.fellEvents.treeResponseStream()
-      .mergeMap(event => {
+      .mergeMap(responseEvent => {
         return new Observable(stream => {
           let hewnTreeFactory = new HewnTreeFactory();
-          this.socket.on(event, (treeData:ITreeResponse) => stream.next(hewnTreeFactory.buildFromJSON(treeData)));
+          this.socket.on(responseEvent, (treeData:ITreeResponse) => stream.next(hewnTreeFactory.buildFromJSON(treeData)));
 
           return () => this.socket.disconnect();
         });
@@ -41,7 +40,7 @@ export class TreeService {
   }
 
   public requestTree():void {
-    this.requestStream.subscribe(event => this.socket.emit(event));
+    this.requestStream.subscribe(requestEvent => this.socket.emit(requestEvent));
   }
 
 }

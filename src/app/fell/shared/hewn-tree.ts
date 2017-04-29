@@ -1,4 +1,4 @@
-import { ITreeResponse } from '../../shared/tree-response';
+import { ITreeResponse } from '../../common/json-data/json.ITreeResponse';
 
 export class HewnTree {
 
