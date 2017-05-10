@@ -5,16 +5,16 @@ import { HttpModule } from '@angular/http';
 
 // components
 import { AppComponent } from './app.component';
-import { FellCanvasComponent } from './fell/fell-canvas/fell-canvas.component';
+import { MndlGaemComponent } from './game/mndl-gaem/mndl-gaem.component';
 
 // services
-import { TreeService } from './fell/shared/tree.service';
+import { TreeService } from './game/shared/tree.service';
 import { SocketService } from './shared/services/socket.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FellCanvasComponent
+    MndlGaemComponent
   ],
   imports: [
     BrowserModule,

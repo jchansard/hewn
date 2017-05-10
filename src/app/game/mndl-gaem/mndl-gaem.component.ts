@@ -11,7 +11,7 @@ import { HewnTree } from '../shared/hewn-tree';
   templateUrl: './fell-canvas.component.html',
   styleUrls: ['./fell-canvas.component.css']
 })
-export class FellCanvasComponent implements OnInit {
+export class MndlGaemComponent implements OnInit {
   @ViewChild('fellCanvas') canvas: ElementRef;
   tree: Path;
   paperScope: PaperScope;
