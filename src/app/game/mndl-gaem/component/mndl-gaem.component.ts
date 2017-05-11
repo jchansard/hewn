@@ -1,43 +1,39 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { TreeService } from '../shared/tree.service';
-import { Path, Project, PaperScope, Point, Style } from 'paper';
+import { TreeService } from '../../shared/tree.service';
+import { MndlGaemService } from '../service/mndl-gaem.service';
+import { Path, Raster, Point, Style } from 'paper';
 import { Observable }  from 'rxjs/Observable';
-import * as paper from 'paper';
 
-import { HewnTree } from '../shared/hewn-tree';
+import { HewnTree } from '../../shared/hewn-tree';
 
 @Component({
-  selector: 'fell-viewport',
-  templateUrl: './fell-canvas.component.html',
-  styleUrls: ['./fell-canvas.component.css']
+  selector: 'mndl-gaem',
+  templateUrl: './mndl-gaem.component.html',
+  styleUrls: ['./mndl-gaem.component.css']
 })
 export class MndlGaemComponent implements OnInit {
   @ViewChild('fellCanvas') canvas: ElementRef;
   tree: Path;
-  paperScope: PaperScope;
-  paper = paper;
 
-  constructor(private treeService: TreeService) {
+  constructor(private gameService: MndlGaemService) {
 
   }
 
   ngOnInit() {
-    this.subscribeToResponseStreams();
+    //this.subscribeToResponseStreams();
     // Create an empty project and a view for the canvas
-    this.paper.setup(this.canvas.nativeElement);
-    // Load the tree
-    this.getTree();
-
-    // Draw the tree
-		this.paper.view.draw();
+    this.gameService.bindTo(this.canvas.nativeElement);
   }
 
   private subscribeToResponseStreams():void {
-    this.treeService.subscribe(this.drawTree);
+   //  this.treeService.subscribe(this.drawTree);
   }
 
+
+
+// old tree stuff
   private getTree():void {
-    this.treeService.requestTree();
+  //  this.treeService.requestTree();
   }
 
   private drawTree(tree:HewnTree):void {
