@@ -15,7 +15,7 @@ const entryPoints = ["inline","polyfills","sw-register","styles","vendor","main"
 const baseHref = "";
 const deployUrl = "";
 
-const phaserModulePath = path.join(__dirname, '/node_modules/phaser/');
+const phaserModulePath = path.join(__dirname, '/node_modules/phaser-ce/');
 
 
 module.exports = {
