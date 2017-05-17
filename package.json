@@ -15,7 +15,6 @@
     "n": "cd dist && node server.js",
     "copy-shared-client": "rm -rf src/app/common/* && cd common-src && find . -name '*.ts' | cpio -pmdv ../src/app",
     "copy-shared-server": "rm -rf server-src/common/* && cd common-src && tsc"
-
   },
   "private": true,
   "dependencies": {
@@ -28,8 +27,10 @@
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
     "core-js": "^2.4.1",
+    "expose-loader": "^0.7.3",
     "express": "^4.15.2",
     "paper": "^0.11.2",
+    "phaser": "^2.6.2",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4"
   },

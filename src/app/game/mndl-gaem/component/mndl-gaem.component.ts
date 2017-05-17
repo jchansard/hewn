@@ -14,6 +14,7 @@ import { HewnTree } from '../../shared/hewn-tree';
 export class MndlGaemComponent implements OnInit {
   @ViewChild('fellCanvas') canvas: ElementRef;
   tree: Path;
+  containerID: string = 'mndlgaem-container'
 
   constructor(private gameService: MndlGaemService) {
 
@@ -22,7 +23,7 @@ export class MndlGaemComponent implements OnInit {
   ngOnInit() {
     //this.subscribeToResponseStreams();
     // Create an empty project and a view for the canvas
-    this.gameService.bindTo(this.canvas.nativeElement);
+    this.gameService.bindTo(this.containerID);
   }
 
   private subscribeToResponseStreams():void {
