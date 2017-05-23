@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { TreeService } from '../../shared/tree.service';
+import { TreeService } from '../shared/tree.service';
 import { MndlGaemService } from '../service/mndl-gaem.service';
 import { Path, Raster, Point, Style } from 'paper';
 import { Observable }  from 'rxjs/Observable';
 
-import { HewnTree } from '../../shared/hewn-tree';
+import { HewnTree } from '../shared/hewn-tree';
 
 @Component({
   selector: 'mndl-gaem',

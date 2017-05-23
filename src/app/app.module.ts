@@ -5,12 +5,12 @@ import { HttpModule } from '@angular/http';
 
 // components
 import { AppComponent } from './app.component';
-import { MndlGaemComponent } from './game/mndl-gaem/component/mndl-gaem.component';
+import { MndlGaemComponent } from './game/component/mndl-gaem.component';
 
 // services
 import { TreeService } from './game/shared/tree.service';
 import { SocketService } from './shared/services/socket.service';
-import { MndlGaemService } from './game/mndl-gaem/service/mndl-gaem.service';
+import { MndlGaemService } from './game/service/mndl-gaem.service';
 
 @NgModule({
   declarations: [
