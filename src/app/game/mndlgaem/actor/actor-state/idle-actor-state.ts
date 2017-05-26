@@ -1,5 +1,5 @@
-import { ActorState } from './';
-import { Actor } from '../actor';
+import { ActorState, UsingAbilityActorState } from './';
+import { Actor, actorInputActions } from '../actor';
 
 export class IdleActorState extends ActorState {
   actor: Actor;
@@ -10,7 +10,10 @@ export class IdleActorState extends ActorState {
 
   exit():void {}
 
-  handleInput() {
+  update(input:actorInputActions) {
+    if (input == actorInputActions.ACT) {
+      return new UsingAbilityActorState(this.actor, this.actor.nextAbility())
+    }
     return this;
   }
 }

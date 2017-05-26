@@ -1,12 +1,28 @@
+// todo: this should probably live elsewhere
+export enum actorInputActions {
+  ACT,
+  NONE
+}
+
 import { ActorState, IdleActorState } from './actor-state'
+import { Ability, AbilityList } from './ability';
 
 export class Actor {
-  state: ActorState;
-  sprite: Phaser.Sprite;
-  name: string;
+  public sprite: Phaser.Sprite;
+
+  private name: string;
+  private state: ActorState;
+  private input: actorInputActions;
+  private abilities: AbilityList;
 
   constructor(name:string) {
     this.name = name;
+
+    //todo: load
+    let ability = new Ability();
+    let abilities = [];
+    abilities.push(ability);
+    this.abilities = new AbilityList(abilities);
   }
 
   public init(game:Phaser.Game, x:number, y: number) {
@@ -19,7 +35,14 @@ export class Actor {
   }
 
   public update() {
-    this.state.handleInput();
+    let state:ActorState = this.state.update(this.input);
+    this.state = (state) ? state : this.state;
+    this.input = actorInputActions.NONE;
+  }
+
+  public handleInput() {
+    // todo: actually take input...
+    this.input = actorInputActions.ACT;
   }
 
   public setAnimation(key: string) {
@@ -29,4 +52,9 @@ export class Actor {
       }
     }
   }
+
+  public nextAbility():Ability {
+    return this.abilities.next();
+  }
+
 }

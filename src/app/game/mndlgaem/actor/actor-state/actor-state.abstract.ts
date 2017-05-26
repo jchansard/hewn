@@ -1,4 +1,4 @@
-import { Actor } from '../actor';
+import { Actor, actorInputActions } from '../actor';
 
 export abstract class ActorState {
   protected actor: Actor;
@@ -7,7 +7,7 @@ export abstract class ActorState {
     this.actor = actor;
   }
 
-  handleInput():ActorState {
+  update(input: actorInputActions):ActorState {
     return this;
   }
 
