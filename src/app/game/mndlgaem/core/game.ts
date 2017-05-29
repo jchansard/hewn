@@ -13,11 +13,14 @@ export class MndlGaem extends Phaser.Game {
     super(width, height, Phaser.AUTO, containerID);
     this.socket = socket;
     this.player = new Player(); // todo: load player
+    Phaser.Device.whenReady(this.init, this);
   }
 
   public init():void {
+    this.tweens.frameBased = true;
     this.state.add('battle', new BattleGameState(this.player));
     this.state.start('battle');
+    console.log('game started. FPS: ' + this.time.fps)
   }
 
 

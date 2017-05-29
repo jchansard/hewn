@@ -12,7 +12,7 @@ export class BattleGameState extends MndlGaemState {
   preload():void {
     this.onPreload();
     this.game.load.image('background', '../assets/bg.png');
-    this.game.load.atlas('sprite', '../assets/sprites.png', '../assets/sprites.json', Phaser.Loader.TEXTURE_ATLAS_JSON_ARRAY);
+    this.game.load.atlasJSONArray('sprites', '../assets/alteredbeast.png', '../assets/alteredbeast.json');
   }
 
   create():void {
@@ -23,6 +23,6 @@ export class BattleGameState extends MndlGaemState {
   }
 
   update():void {
-    this.player.update(); // todo: update all actors 
+    this.player.update(); // todo: update all actors
   }
 }

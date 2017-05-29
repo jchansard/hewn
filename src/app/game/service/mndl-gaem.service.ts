@@ -30,7 +30,7 @@ export class MndlGaemService {
     // this.draw();
 
     this.game = new MndlGaem(containerID, this.socketService.getSocket());
-    this.init();
+  //  this.init();
 
   }
 }

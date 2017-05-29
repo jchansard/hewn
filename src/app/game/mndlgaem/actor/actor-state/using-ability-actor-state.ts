@@ -16,7 +16,7 @@ export class UsingAbilityActorState extends ActorState {
     if (this.ability.isFinished) {
       let nextAbility:Ability = this.ability.nextLinkedAbility;
       // if there is no next ability, return to idle
-      if (nextAbility === null) {
+      if (!nextAbility) {
         return new IdleActorState(this.actor);
       }
     // else if ((nextAbility.range = 0) && (!this.inRange)) { // todo: handle ranges better

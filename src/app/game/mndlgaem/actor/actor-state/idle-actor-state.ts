@@ -5,6 +5,7 @@ export class IdleActorState extends ActorState {
   actor: Actor;
 
   enter():void {
+    console.log('idle entered');
     this.actor.setAnimation('idle'); // todo: constantize
   }
 
@@ -14,6 +15,6 @@ export class IdleActorState extends ActorState {
     if (input == actorInputActions.ACT) {
       return new UsingAbilityActorState(this.actor, this.actor.nextAbility())
     }
-    return this;
+    else return null;
   }
 }

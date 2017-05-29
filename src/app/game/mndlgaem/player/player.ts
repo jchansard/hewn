@@ -10,8 +10,8 @@ export class Player {
 
   init(game:Phaser.Game) {
     this.game = game;
-    let moon = new Actor('sprite')
-    moon.init(this.game, 30, 30);
+    let moon = new Actor('bear')
+    moon.init(this.game, 30, 630);
     this.deck.push(moon);
     console.log(this.deck);
   }

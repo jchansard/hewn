@@ -26,8 +26,10 @@ export class Actor {
   }
 
   public init(game:Phaser.Game, x:number, y: number) {
-    this.sprite = new Phaser.Sprite(game, x, y, this.name);
-    this.sprite.animations.add('idle', Phaser.Animation.generateFrameNames(this.name, 1, 4), 5, true); //todo: modular
+    this.sprite = new Phaser.Sprite(game, x, y, 'sprites', this.name + '_idle_1'); // todo: constant
+    //this.sprite.scale = new Phaser.Point(3, 3);
+    this.sprite.animations.add('idle', Phaser.Animation.generateFrameNames(this.name + '_idle_', 1, 1), 8, true); //todo: modular
+    this.sprite.animations.add('walk', Phaser.Animation.generateFrameNames(this.name + '_walk_', 1, 4), 8, true);
     this.state = new IdleActorState(this);
     this.state.enter(); //todo:modularize obvi
     game.add.existing(this.sprite);
@@ -36,7 +38,10 @@ export class Actor {
 
   public update() {
     let state:ActorState = this.state.update(this.input);
-    this.state = (state) ? state : this.state;
+    if (state) {
+      this.state = state;
+      this.state.enter();
+    }
     this.input = actorInputActions.NONE;
   }
 
@@ -46,11 +51,7 @@ export class Actor {
   }
 
   public setAnimation(key: string) {
-    switch (key) {
-      case 'idle': {
-        this.sprite.animations.play('idle');
-      }
-    }
+    this.sprite.animations.play(key);
   }
 
   public nextAbility():Ability {
