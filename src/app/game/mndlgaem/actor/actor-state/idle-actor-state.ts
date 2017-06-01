@@ -1,5 +1,6 @@
 import { ActorState, UsingAbilityActorState } from './';
 import { Actor, actorInputActions } from '../actor';
+import { Ability } from '../ability';
 
 export class IdleActorState extends ActorState {
   actor: Actor;
@@ -13,7 +14,10 @@ export class IdleActorState extends ActorState {
 
   update(input:actorInputActions) {
     if (input == actorInputActions.ACT) {
-      return new UsingAbilityActorState(this.actor, this.actor.nextAbility())
+      let ability:Ability = this.actor.nextAbility();
+      if (ability !== null) {
+        return new UsingAbilityActorState(this.actor, ability)
+      }
     }
     else return null;
   }

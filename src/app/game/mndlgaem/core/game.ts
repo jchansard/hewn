@@ -9,9 +9,10 @@ export class MndlGaem extends Phaser.Game {
   private socket: SocketIOClient.Socket;
   public readonly player:Player;
 
-  constructor(containerID: string, socket: SocketIOClient.Socket) {
+  constructor(containerID: string, socket: SocketIOClient.Socket, playerData: any) {
     super(width, height, Phaser.AUTO, containerID);
     this.socket = socket;
+    console.log(playerData);
     this.player = new Player(); // todo: load player
     Phaser.Device.whenReady(this.init, this);
   }
