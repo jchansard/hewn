@@ -11,8 +11,6 @@ export class BattleGameState extends MndlGaemState {
   }
   preload():void {
     this.onPreload();
-    this.game.load.image('background', '../assets/bg.png');
-    this.game.load.atlasJSONArray('sprites', '../assets/alteredbeast.png', '../assets/alteredbeast.json');
   }
 
   create():void {
