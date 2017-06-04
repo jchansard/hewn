@@ -11,6 +11,7 @@ export class BattleGameState extends MndlGaemState {
   }
   preload():void {
     this.onPreload();
+    this.player.init(this.game);
   }
 
   create():void {

@@ -7,7 +7,7 @@ export class IdleActorState extends ActorState {
 
   enter():void {
     console.log('idle entered');
-    this.actor.setAnimation('idle'); // todo: constantize
+    this.actor.animations.play('idle'); // todo: constantize
   }
 
   exit():void {}

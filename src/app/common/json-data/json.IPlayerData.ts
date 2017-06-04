@@ -1,4 +1,4 @@
-declare interface IActorData {}
+import { IActorData } from './';
 
 export interface IPlayerData {
   id: number,
