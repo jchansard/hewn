@@ -5,7 +5,7 @@ var currID = 0;
 var abilities = [{id:1}];
 var names = ['xxSefirothxx','OXBOW','online_playing','lighthaus','EEEEK','kik','falafelEnthusiast','LEFT4SCRAPS'];
 var commanders = ['man','strongman','weakman'];
-var deck = [getMockActor('bear')];
+var deck = [getMockActor('bear'), getMockActor('dragon'), getMockActor('bwolf'), getMockActor('tiger')];
 
 function getMockPlayerData() {
   let name = Math.floor(Math.random() * names.length);
@@ -43,6 +43,6 @@ function getMockActor(name) {
 module.exports = (io, socket) => {
   socket.on(events.loadPlayerEvent, () => {
     console.log(events.loadPlayerResponseEvent);
-    io.emit(events.loadPlayerResponseEvent, getMockPlayerData());
+    io.json.emit(events.loadPlayerResponseEvent, getMockPlayerData());
   });
 }

@@ -10,22 +10,22 @@ export class Player {
     this.deck = deck;
   }
 
-  init(game:Phaser.Game) {
+  init(game:Phaser.Game, stage:any[]) {
     this.game = game;
-    this.deck.forEach((actor) => actor.init(this.game, 30, 630));
+    this.deck.slice(0, stage.length).forEach((actor, index) => actor.init(this.game, stage[index].x, stage[index].y));
     // let moon = new Actor('bear')
     // moon.init(this.game, 30, 630);
     // this.deck.push(moon);
   }
 
-  public activateCard() {
-    this.deck[0].handleInput();
+  public activateCard(index:number) {
+    this.deck[index].handleInput();
   }
 
 
   // todo: move this out of player to group that updates all actors
   public update() {
-    this.deck[0].update();
+    this.deck.slice(0, 4).forEach((actor) => actor.update()); //todo: not 0,4 obvi
   }
 }
 
