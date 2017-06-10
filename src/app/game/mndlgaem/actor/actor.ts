@@ -1,5 +1,6 @@
 import { IActorData, IAnimationData } from '../../../common/json-data';
 import { ActorAnimationComponent } from './actor-animation-component';
+import { Point } from '../shared';
 
 // todo: this should probably live elsewhere
 export enum actorInputActions {
@@ -30,8 +31,8 @@ export class Actor {
     this._animations = new ActorAnimationComponent(this.name);
   }
 
-  public init(game:Phaser.Game, x:number, y: number) {
-    this.sprite = new Phaser.Sprite(game, x, y, 'sprites', this.animations.startingFrame); // todo: constant
+  public init(game:Phaser.Game, coords:Point) {
+    this.sprite = new Phaser.Sprite(game, coords.x, coords.y, 'sprites', this.animations.startingFrame); // todo: constant
     this.animations.init(this.sprite);
     //this.sprite.scale = new Phaser.Point(3, 3);
     // this.sprite.animations.add('idle', Phaser.Animation.generateFrameNames(this.name + '_idle_', 1, 1), 8, true); //todo: modular

@@ -7,7 +7,7 @@ var currID = 0;
 var abilities = [{id:1}];
 var names = ['xxSefirothxx','OXBOW','online_playing','lighthaus','EEEEK','kik','falafelEnthusiast','LEFT4SCRAPS'];
 var commanders = ['man','strongman','weakman'];
-var deck = [getMockActor('bear'), getMockActor('dragon'), getMockActor('bwolf'), getMockActor('tiger')];
+var deck = [getMockActor('strongman'), getMockActor('bear'), getMockActor('bwolf'), getMockActor('tiger')];
 
 function getMockPlayerData() {
   let name = Math.floor(Math.random() * names.length);
@@ -41,7 +41,7 @@ function getMockActor(name) {
   };
 }
 
-//db.newJSONObject('player', JSON.stringify(getMockPlayerData())).subscribe((id)=>console.log(id));
+//db.Players.add(JSON.stringify(getMockPlayerData())).subscribe((id)=>console.log(id));
 
 // sets up the passed socket to respond to player data request events
 module.exports = (socket) => {

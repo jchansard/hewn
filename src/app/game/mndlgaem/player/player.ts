@@ -10,9 +10,8 @@ export class Player {
     this.deck = deck;
   }
 
-  init(game:Phaser.Game, stage:any[]) {
+  init(game:Phaser.Game) {
     this.game = game;
-    this.deck.slice(0, stage.length).forEach((actor, index) => actor.init(this.game, stage[index].x, stage[index].y));
     // let moon = new Actor('bear')
     // moon.init(this.game, 30, 630);
     // this.deck.push(moon);

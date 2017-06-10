@@ -20,7 +20,10 @@ var GameDataEvents = (function () {
     GameDataEvents.prototype.loadPlayerResponseStream = function (socket) {
         var _this = this;
         return new Observable_1.Observable(function (stream) {
-            socket.on(_this.events.loadPlayerResponse, function (playerData) { return stream.next(playerData); });
+            socket.on(_this.events.loadPlayerResponse, function (playerData) {
+                stream.next(playerData);
+                stream.complete();
+            });
         });
     };
     return GameDataEvents;

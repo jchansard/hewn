@@ -1,15 +1,17 @@
 import { MndlGaemState, keyActions } from './';
+import { Point } from '../../shared';
+import { GameStage } from './game-stage/game-stage';
 import { Player } from '../../player/player';
 import { Actor } from '../../actor/actor';
 
 export class BattleGameState extends MndlGaemState {
   private player:Player;
-  public playerStage: any[];
+  public gameStage: GameStage;
 
   constructor(player:Player) {
     super();
     this.player = player;
-    this.playerStage = [{x:175, y:625}, {x:100,y:550}, {x:175, y:475}, {x:250, y:550} ]; //todo: enforce type
+    this.gameStage = new GameStage()
   }
   preload():void {
     this.onPreload();
@@ -17,7 +19,8 @@ export class BattleGameState extends MndlGaemState {
 
   create():void {
     this.game.add.image(0, 0, 'background');
-    this.player.init(this.game, this.playerStage);
+    this.player.init(this.game);
+    this.initializeLevel();
 
     this.inputComponent.registerHandler(keyActions.DOWN, () => this.player.activateCard(0)); //todo: not magic numbers
     this.inputComponent.registerHandler(keyActions.LEFT, () => this.player.activateCard(1));
@@ -27,5 +30,9 @@ export class BattleGameState extends MndlGaemState {
 
   update():void {
     this.player.update(); // todo: update all actors
+  }
+
+  private initializeLevel():void {
+    this.player.deck.slice(0, this.gameStage.playerSlotCount).forEach((actor, index) => actor.init(this.game, this.gameStage.playerSlot(index)));
   }
 }
