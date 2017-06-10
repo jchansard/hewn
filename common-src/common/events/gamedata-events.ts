@@ -9,7 +9,10 @@ export class GameDataEvents {
   public get loadPlayerResponseEvent():string { return this.events.loadPlayerResponse }
   public loadPlayerResponseStream(socket:SocketIOClient.Socket):Observable<any> {
     return new Observable(stream => {
-      socket.on(this.events.loadPlayerResponse, (playerData) => stream.next(playerData));
+      socket.on(this.events.loadPlayerResponse, (playerData) => {
+        stream.next(playerData)
+        stream.complete();
+      });
     })
   }
 }

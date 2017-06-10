@@ -1,4 +1,6 @@
 const GameDataEvents = require('../common/events/gamedata-events').GameDataEvents;
+const db = require('../db/db');
+
 let events = new GameDataEvents();
 
 var currID = 0;
@@ -39,10 +41,11 @@ function getMockActor(name) {
   };
 }
 
+//db.newJSONObject('player', JSON.stringify(getMockPlayerData())).subscribe((id)=>console.log(id));
+
 // sets up the passed socket to respond to player data request events
-module.exports = (io, socket) => {
+module.exports = (socket) => {
   socket.on(events.loadPlayerEvent, () => {
-    console.log(events.loadPlayerResponseEvent);
-    io.json.emit(events.loadPlayerResponseEvent, getMockPlayerData());
+    db.Players.get('y7qb5j').subscribe((response) => socket.json.emit(events.loadPlayerResponseEvent, response))
   });
 }

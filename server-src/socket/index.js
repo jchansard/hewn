@@ -5,7 +5,8 @@ module.exports = function(io) {
     socket.on('disconnect', () => console.log('user disconnected'));
 
     // handle events
-    require('./gamedata.socket.js')(io, socket);
+    require('./gamedata.socket.js')(socket);
+
   });
   return io;
 };
