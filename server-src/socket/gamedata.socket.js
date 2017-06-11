@@ -44,8 +44,8 @@ function getMockActor(name) {
 //db.Players.add(JSON.stringify(getMockPlayerData())).subscribe((id)=>console.log(id));
 
 // sets up the passed socket to respond to player data request events
-module.exports = (socket) => {
+module.exports = (socket, db) => {
   socket.on(events.loadPlayerEvent, () => {
-    db.Players.get('y7qb5j').subscribe((response) => socket.json.emit(events.loadPlayerResponseEvent, response))
+    db.Players.get(socket.userID).subscribe((response) => socket.json.emit(events.loadPlayerResponseEvent, response))
   });
 }

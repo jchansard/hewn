@@ -2,6 +2,7 @@ const express = require('express');
 const http    = require('http');
 const path    = require('path');
 const ioInit  = require('./socket');
+const db      = require('./db/db');
 
 const root = '';
 const port = process.env.PORT || '3000';
@@ -28,9 +29,10 @@ app.set('port', port);
 
 // init html server
 let server = http.createServer(app);
+let db = new db();
 
 // init socket
 let io = require('socket.io').listen(server);
-ioInit(io);
+ioInit(io, db);
 //let io = require('socket.io')(http); io.on('connection', (socket) => { console.log('user connected'); socket.on('disconnect', function(){ console.log('user disconnected'); }); socket.on('add-message', (message) => { io.emit('message', {type:'new-message', text: message}); }); });
 server.listen(port, () => console.log(`mndlsrv running:${port}`));
