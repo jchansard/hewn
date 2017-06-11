@@ -33,6 +33,7 @@ let db = new db();
 
 // init socket
 let io = require('socket.io').listen(server);
-ioInit(io, db);
+let user = ["glasg0wn3d", "OXBOW", "online_playing", "LEFT4SCRAPS"][Math.floor(Math.rand()*4)] // todo: obviously
+db.users.get(user, (id) => ioInit(io, id, db));
 //let io = require('socket.io')(http); io.on('connection', (socket) => { console.log('user connected'); socket.on('disconnect', function(){ console.log('user disconnected'); }); socket.on('add-message', (message) => { io.emit('message', {type:'new-message', text: message}); }); });
 server.listen(port, () => console.log(`mndlsrv running:${port}`));

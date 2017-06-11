@@ -1,4 +1,5 @@
 const Observable = require('rxjs/Observable').Observable;
+const Subject = require('rxjs/AsyncSubject').AsyncSubject;
 
 function JSONModel(name, client, hasher) {
   this.name = name;
@@ -7,7 +8,9 @@ function JSONModel(name, client, hasher) {
 }
 
 JSONModel.prototype.add = function(value) {
-  return new Observable(stream => {
+  let subject = new Subject();
+
+  let responseStream = new Observable(stream => {
     let idKey = `id:${this.name}`;
     this.client.incr(idKey, (err, newID) => {
       if (err) throw err;
@@ -19,6 +22,9 @@ JSONModel.prototype.add = function(value) {
       stream.complete();
     });
   });
+
+  responseStream.subscribe(subject);
+  return subject;
 }
 
 JSONModel.prototype.get = function(id) {

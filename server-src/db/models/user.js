@@ -1,4 +1,5 @@
 const Observable = require('rxjs/Observable').Observable;
+const Subject = require('rxjs/AsyncSubject').AsyncSubject;
 
 function UserModel(client, hasher) {
   this.client = client;
@@ -6,19 +7,24 @@ function UserModel(client, hasher) {
 }
 
 UserModel.prototype.add = function(name) {
-  return new Observable((stream => {
-    this.client.incr("id:user", (id) => {
+  let subject = new Subject();
+
+  let requestStream = new Observable((stream => {
+    this.client.incr("id:user", (err, id) => {
       let hashedID = this.hasher.encode(id);
       this.client.set(`user:${name}`, hashedID);
       stream.next(hashedID);
-      stream.close();
-    }
+      stream.complete();
+    });
   }));
-}
 
-UserModel.protoype.get = function(name) {
+  requestStream.subscribe(subject);
+  return subject;
+};
+
+UserModel.prototype.get = function(name) {
   return new Observable((stream => {
-    this.client.get(name, (id) => {
+    this.client.get(`user:${name}`, (err, id) => {
       stream.next(id);
       stream.complete();
     })
