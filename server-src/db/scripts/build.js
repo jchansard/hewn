@@ -1,4 +1,5 @@
 let Database = require('../db.js');
+let PlayerModel = require('../models').PlayerModel;
 let db = new Database();
 
 const Observable = require('rxjs/Observable').Observable;
@@ -6,27 +7,30 @@ require('rxjs/add/operator/elementAt');
 require('rxjs/add/operator/merge');
 require('rxjs/add/operator/map');
 
+// let players = [
+//   {
+//     commander: 4,
+//     deck: [1,6,7]
+//   },
+//   {
+//     commander: 4,
+//     deck: [1,1,1]
+//   },
+//   {
+//     commander: 3,
+//     deck: [5,5,8]
+//   },
+//   {
+//     commander: 2,
+//     deck: [6,7,5]
+//   }
+// ];
+
 let players = [
-  {
-    playerID: 0,
-    commander: 4,
-    deck: [1,6,7]
-  },
-  {
-    playerID: 1,
-    commander: 4,
-    deck: [1,1,1]
-  },
-  {
-    playerID: 2,
-    commander: 3,
-    deck: [5,5,8]
-  },
-  {
-    playerID: 3, // todo: link to encoded?
-    commander: 2,
-    deck: [6,7,5]
-  }
+  new PlayerModel(4, [1,6,7]),
+  new PlayerModel(4, [1,1,1]),
+  new PlayerModel(3, [5,5,8]),
+  new PlayerModel(2, [6,7,5])
 ];
 
 let users = ["glasg0wn3d","OXBOW","online_playing","LEFT4SCRAPS"];

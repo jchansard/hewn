@@ -1,13 +1,15 @@
 const Observable = require('rxjs/Observable').Observable;
 const Subject = require('rxjs/AsyncSubject').AsyncSubject;
 
-function JSONModel(name, client, hasher) {
+function JSONDB(name, client, hasher) {
   this.name = name;
   this.client = client;
   this.hasher = hasher;
 }
 
-JSONModel.prototype.add = function(value) {
+JSONDB.prototype.new = function() {}
+
+JSONDB.prototype.add = function(value) {
   let subject = new Subject();
 
   let responseStream = new Observable(stream => {
@@ -27,8 +29,9 @@ JSONModel.prototype.add = function(value) {
   return subject;
 }
 
-JSONModel.prototype.get = function(id) {
+JSONDB.prototype.get = function(id) {
   return new Observable(stream => {
+    console.log("get called: " + this.name);
     let decodedID = this.hasher.decode(id);
     this.client.get(`${this.name}:${decodedID}`, (err, response) => {
       if (err) throw err;
@@ -39,4 +42,4 @@ JSONModel.prototype.get = function(id) {
   })
 }
 
-module.exports = JSONModel;
+module.exports = JSONDB;

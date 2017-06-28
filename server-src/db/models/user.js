@@ -1,12 +1,12 @@
 const Observable = require('rxjs/Observable').Observable;
 const Subject = require('rxjs/AsyncSubject').AsyncSubject;
 
-function UserModel(client, hasher) {
+function UserDB(client, hasher) {
   this.client = client;
   this.hasher = hasher;
 }
 
-UserModel.prototype.add = function(name) {
+UserDB.prototype.add = function(name) {
   let subject = new Subject();
 
   let requestStream = new Observable((stream => {
@@ -22,7 +22,7 @@ UserModel.prototype.add = function(name) {
   return subject;
 };
 
-UserModel.prototype.get = function(name) {
+UserDB.prototype.get = function(name) {
   return new Observable((stream => {
     this.client.get(`user:${name}`, (err, id) => {
       stream.next(id);
@@ -31,4 +31,4 @@ UserModel.prototype.get = function(name) {
   }))
 }
 
-module.exports = UserModel;
+module.exports.DB = UserDB;
