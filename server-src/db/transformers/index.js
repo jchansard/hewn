@@ -1,2 +1,2 @@
-module.exports.JSONLinkedProperty = require("./json-flesher-outer").JSONLinkedProperty;
-module.exports.JSONFlesherOuter = require("./json-flesher-outer").JSONFlesherOuter;
+module.exports.LinkedRecord = require("./linked-record-resolver").LinkedRecord;
+module.exports.LinkedRecordResolver = require("./linked-record-resolver").LinkedRecordResolver;

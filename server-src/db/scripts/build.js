@@ -7,25 +7,6 @@ require('rxjs/add/operator/elementAt');
 require('rxjs/add/operator/merge');
 require('rxjs/add/operator/map');
 
-// let players = [
-//   {
-//     commander: 4,
-//     deck: [1,6,7]
-//   },
-//   {
-//     commander: 4,
-//     deck: [1,1,1]
-//   },
-//   {
-//     commander: 3,
-//     deck: [5,5,8]
-//   },
-//   {
-//     commander: 2,
-//     deck: [6,7,5]
-//   }
-// ];
-
 let players = [
   new PlayerModel(4, [1,6,7]),
   new PlayerModel(4, [1,1,1]),

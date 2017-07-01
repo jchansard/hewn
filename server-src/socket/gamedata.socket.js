@@ -1,8 +1,5 @@
 const GameDataEvents = require('../common/events/gamedata-events').GameDataEvents;
 const db = require('../db/db');
-const playerPropertyMap = require('../db/models').PlayerPropertyMap;
-const JSONFlesherOuter = require ('../db/transformers').JSONFlesherOuter;
-
 
 // var currID = 0;
 // var abilities = [{id:1}];
@@ -48,9 +45,8 @@ const JSONFlesherOuter = require ('../db/transformers').JSONFlesherOuter;
 module.exports = (socket, db) => {
   let events = new GameDataEvents();
   socket.on(events.loadPlayerEvent, () => {
-    db.players.get(socket.userID).subscribe((response) => {
-      let flesherOuter = new JSONFlesherOuter(response, playerPropertyMap);
-      socket.json.emit(events.loadPlayerResponseEvent, flesherOuter.fleshOut());
-    });
-  });
+    console.log(socket.userID);
+    db.gamedata.players.get(socket.userID).subscribe((response) => socket.json.emit(events.loadPlayerResponseEvent, response))
+  }
+  );
 }

@@ -1,15 +1,15 @@
 const Observable = require('rxjs/Observable').Observable;
 const Subject = require('rxjs/AsyncSubject').AsyncSubject;
 
-function JSONDB(name, client, hasher) {
+function DynamicJSONDB(name, client, hasher, linkedRecordResolver, linkedRecordDictionary) {
   this.name = name;
   this.client = client;
   this.hasher = hasher;
+  this.linkedRecordResolver = linkedRecordResolver;
+  this.linkedRecordDictionary = linkedRecordDictionary;
 }
 
-JSONDB.prototype.new = function() {}
-
-JSONDB.prototype.add = function(value) {
+DynamicJSONDB.prototype.add = function(value) {
   let subject = new Subject();
 
   let responseStream = new Observable(stream => {
@@ -29,17 +29,22 @@ JSONDB.prototype.add = function(value) {
   return subject;
 }
 
-JSONDB.prototype.get = function(id) {
+DynamicJSONDB.prototype.get = function(id) {
   return new Observable(stream => {
-    console.log("get called: " + this.name);
     let decodedID = this.hasher.decode(id);
     this.client.get(`${this.name}:${decodedID}`, (err, response) => {
       if (err) throw err;
-      try { response = JSON.parse(response); } catch (err) { stream.error(err); }
-      stream.next(response);
-      stream.complete();
+      try {
+        response = JSON.parse(response);
+        this.linkedRecordResolver.resolveLinkedRecords(response, this.linkedRecordDictionary).subscribe((response) => {
+          stream.next(response);
+          stream.complete();
+        });
+      } catch (err) { stream.error(err); }
+      //stream.next(response);
+      //stream.complete();
     });
   })
 }
 
-module.exports = JSONDB;
+module.exports = DynamicJSONDB;
